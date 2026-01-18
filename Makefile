@@ -31,7 +31,7 @@ download-thai: ## Скачать дамп базы thai
 	wget -O ./postgres/data/$(THAI_FILENAME) $(THAI_LINK)
 
 import-thai: ## Импортировать дамп thai
-	@echo "Importing dump booking..."
+	@echo "Importing dump thai..."
 	docker exec -it postgres bash -c "tar -xOf '/tmp/postgres/data/$(THAI_FILENAME)' | psql -U '${POSTGRES_USER}'"
 
 .PHONY: \
