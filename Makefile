@@ -20,11 +20,19 @@ connect-booking: ## Подключиться к базе данных booking
 
 download-booking: ## Скачать дамп базы booking
 	@echo "Downloading booking dump file..."
-	wget -O $(DUMP_FILEPATH) $(DUMP_LINK)
+	wget -O ./postgres/data/$(BOOKING_FILENAME) $(BOOKING_LINK)
 
 import-booking: ## Импортировать дамп booking
 	@echo "Importing dump booking..."
-	docker exec -it postgres bash -c "gunzip -c '/tmp/${DUMP_FILEPATH}' | psql -U '${POSTGRES_USER}'"
+	docker exec -it postgres bash -c "gunzip -c '/tmp/postgres/data/${BOOKING_FILENAME}' | psql -U '${POSTGRES_USER}'"
+
+download-thai: ## Скачать дамп базы thai
+	@echo "Downloading thai dump file..."
+	wget -O ./postgres/data/$(THAI_FILENAME) $(THAI_LINK)
+
+import-thai: ## Импортировать дамп thai
+	@echo "Importing dump booking..."
+	docker exec -it postgres bash -c "tar -xOf '/tmp/postgres/data/$(THAI_FILENAME)' | psql -U '${POSTGRES_USER}'"
 
 .PHONY: \
 	help \
@@ -32,4 +40,6 @@ import-booking: ## Импортировать дамп booking
 	down \
 	download-booking \
 	import-booking \
+	download-thai \
+	import-thai \
 	psql

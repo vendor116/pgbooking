@@ -1,27 +1,34 @@
-# PG Booking application
+# PG Booking
 
-Репка для поднятия демо базы booking postgres
+Репка для поднятия демо баз:
+* [booking](https://postgrespro.ru/education/demodb)
+* [thai](https://github.com/aeuge/postgres16book/blob/main/database/README.md)
 
 ## Как развернуть
 
-Копируем .env
-```bash
-cp ./.env.example ./.env
-```
+1. Копируем .env
+   ```bash
+   cp .env.example .env
+   ```
 
-Скачиваем дамп базы booking
-```bash
-make download-booking
-```
+2. Скачиваем дамп базы
+   ```bash
+   make download-booking
+   ```
+   ```bash
+   make download-thai
+   ```
 
-Поднимаем контейнеры
-```bash
-make up
-```
+3. Поднимаем контейнеры
+   ```bash
+   make up
+   ```
 
-Накатываем дамп базы
-```bash
-make import-booking
-```
-
-При подключении из pgadmin в хостах прописываем postgres - имя контейнера c postgres
+4. Накатываем дамп базы
+   ```bash
+   make import-booking
+   ```
+   ```bash
+   make import-thai
+   ```
+5. При подключении из pgadmin в хостах прописываем postgres - имя контейнера c postgres

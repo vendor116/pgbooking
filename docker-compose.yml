@@ -15,7 +15,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql
       - ./postgres/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
-      - ./${DUMP_FILEPATH}:/tmp/${DUMP_FILEPATH}
+      - ./postgres/data:/tmp/postgres/data
     networks:
       - app-network
     healthcheck:
