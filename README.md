@@ -32,3 +32,8 @@
    make import-thai
    ```
 5. При подключении из pgadmin в хостах прописываем postgres - имя контейнера c postgres
+
+## Дополнительная информация
+
+* [bookings, статья на хабре](https://habr.com/ru/companies/postgrespro/articles/956096/)
+* [Книга: PostgreSQL 16: лучшие практики оптимизации](https://github.com/aeuge/postgres16book)
