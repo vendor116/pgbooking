@@ -14,9 +14,9 @@ down: ## Остановить Docker контейнеры
 	@echo "Docker compose down..."
 	docker compose down
 
-connect-booking: ## Подключиться к базе данных booking
+psql: ## Подключиться через psql
 	@echo "Connecting to booking database..."
-	docker exec -it postgres bash -c "PGPASSWORD='$(POSTGRES_PASSWORD)' psql -U '$(POSTGRES_USER)' -d '$(POSTGRES_DB)'"
+	docker exec -it postgres bash -c "PGPASSWORD='$(POSTGRES_PASSWORD)' psql -U '$(POSTGRES_USER)'"
 
 download-booking: ## Скачать дамп базы booking
 	@echo "Downloading booking dump file..."
@@ -26,20 +26,11 @@ import-booking: ## Импортировать дамп booking
 	@echo "Importing dump booking..."
 	docker exec -it postgres bash -c "gunzip -c '/tmp/postgres/data/${BOOKING_FILENAME}' | psql -U '${POSTGRES_USER}'"
 
-download-thai: ## Скачать дамп базы thai
-	@echo "Downloading thai dump file..."
-	wget -O ./postgres/data/$(THAI_FILENAME) $(THAI_LINK)
-
-import-thai: ## Импортировать дамп thai
-	@echo "Importing dump thai..."
-	docker exec -it postgres bash -c "tar -xOf '/tmp/postgres/data/$(THAI_FILENAME)' | psql -U '${POSTGRES_USER}'"
-
 .PHONY: \
 	help \
 	up \
 	down \
+	psql \
 	download-booking \
 	import-booking \
-	download-thai \
-	import-thai \
 	psql
