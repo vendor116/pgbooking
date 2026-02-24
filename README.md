@@ -5,23 +5,25 @@
 
 ## Как развернуть
 
+Для работы с сервисом вам необходимо установить [Task](https://taskfile.dev/).
+
 1. Копируем .env
    ```bash
-   cp .env.example .env
+   task cp-env
    ```
 2. Скачиваем дамп базы
    ```bash
-   make download-booking
+   task download-dump
    ```
 3. Поднимаем контейнеры
    ```bash
-   make up
+   task compose-up
    ```
 4. Накатываем дамп базы
    ```bash
-   make import-booking
+   task import-dump
    ```
-5. При подключении из pgadmin в хостах прописываем postgres - имя контейнера c postgres
+5. При подключении из pgadmin в хостах прописываем postgres - имя контейнера c postgres, имя базы - demo
 
 ## Дополнительная информация
 

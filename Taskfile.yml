@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: '3'
+
+dotenv:
+  - .env
+
+tasks:
+  cp-env:
+    desc: Копирует файл с переменными окружения
+    silent: true
+    status:
+      - test -f .env
+    cmds:
+      - cp .env.example .env
+      - echo "[OK] Файл .env создан из .env.example"
+
+  compose-up:
+    desc: Поднимает базу в docker контейнере
+    cmds:
+      - docker compose up -d
+
+  compose-stop:
+    desc: Останавливает контейнер
+    cmds:
+      - docker compose stop
+
+  compose-down:
+    desc: Останавливает и удаляет контейнер
+    cmds:
+      - docker compose down
+
+  download-dump:
+    desc: Скачивает дамп тестовой базы bookings
+    cmds:
+      - 'wget -O "./postgres/data/{{.BOOKING_FILENAME}}" "{{.BOOKING_LINK}}"'
+
+  import-dump:
+    desc: Импортирует дамп bookings
+    cmds:
+      - |
+        docker exec -it postgres \
+        bash -c "gunzip -c '/tmp/postgres/data/{{.BOOKING_FILENAME}}' | psql -U '{{.POSTGRES_USER}}'"
+
+  conn-psql:
+    desc: Подключается к базе через psql
+    cmds:
+      - |
+        docker exec -it postgres bash -c "PGPASSWORD='{{.POSTGRES_PASSWORD}}' psql -U '{{.POSTGRES_USER}}'"
+
+  help:
+    desc: Список доступных команд
+    cmds:
+      - task --list
+
+  default:
+    cmds:
+      - task: help
+        silent: true
